@@ -1,0 +1,93 @@
+mysql> create table customer
+    -> (
+    -> custId varchar(10) primary key,
+    -> minSec int not null,
+    -> maxSec int not null);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table task
+    -> (
+    -> taskId varchar(10) primary key,
+    -> custId varchar(10),
+    -> insertTime datetime,
+    -> foreign key(custId) references customer(custId));
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> insert into customer values(uuid(),3,6);
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+mysql> insert into customer values(uuid(),4,6);
+Query OK, 1 row affected, 1 warning (0.04 sec)
+
+mysql> insert into customer values(uuid(),4,9);
+Query OK, 1 row affected, 1 warning (0.04 sec)
+
+mysql> insert into customer values(uuid(),1,10);
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+mysql> select * from customer;
++------------+--------+--------+
+| custId     | minSec | maxSec |
++------------+--------+--------+
+| 18ae6444-a |      3 |      6 |
+| 1bb41d08-a |      4 |      6 |
+| 1e098292-a |      4 |      9 |
+| 231e628d-a |      1 |     10 |
++------------+--------+--------+
+4 rows in set (0.03 sec)
+
+mysql> insert into task values(uuid(),'18ae6444-a',now());
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+mysql> insert into task values(uuid(),'1bb41d08-a',now());
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+mysql> insert into task values(uuid(),'1bb41d08-a',now());
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+mysql> insert into task values(uuid(),'1bb41d08-a',now());
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+mysql> insert into task values(uuid(),'18ae6444-a',now());
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+mysql> insert into task values(uuid(),'231e628d-a',now());
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+mysql> insert into task values(uuid(),'231e628d-a',now());
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+mysql> insert into task values(uuid(),'18ae6444-a',now());
+Query OK, 1 row affected, 1 warning (0.04 sec)
+
+mysql> insert into task values(uuid(),'1bb41d08-a',now());
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+mysql> insert into task values(uuid(),'1e098292-a',now());
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+mysql> select * from task;
++------------+------------+---------------------+
+| taskId     | custId     | insertTime          |
++------------+------------+---------------------+
+| 60b10568-a | 18ae6444-a | 2019-07-26 05:01:07 |
+| 6eb286c9-a | 1bb41d08-a | 2019-07-26 05:01:31 |
+| 70047ff5-a | 1bb41d08-a | 2019-07-26 05:01:33 |
+| 71a7c41f-a | 1bb41d08-a | 2019-07-26 05:01:35 |
+| 746a417b-a | 18ae6444-a | 2019-07-26 05:01:40 |
+| 7e166cec-a | 231e628d-a | 2019-07-26 05:01:56 |
+| 80bf0124-a | 231e628d-a | 2019-07-26 05:02:01 |
+| 83a06722-a | 18ae6444-a | 2019-07-26 05:02:06 |
+| 8518878f-a | 1bb41d08-a | 2019-07-26 05:02:08 |
+| 9065b1ba-a | 1e098292-a | 2019-07-26 05:02:27 |
++------------+------------+---------------------+
+10 rows in set (0.03 sec)
+
+
+mysql>  create table processing
+    ->  (
+    ->  taskID varchar(10),
+    ->  startTime datetime,
+    -> endTime datetime,
+    -> primary key(taskID));
+Query OK, 0 rows affected (0.04 sec)
